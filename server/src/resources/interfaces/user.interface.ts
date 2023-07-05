@@ -1,8 +1,8 @@
 export default interface IUser {
-    name: string,
-    reg_no: string,
-    department: string,
-    gender: string,
-    password: string,
-    role: string,
+  name: string;
+  reg_no: string;
+  department: string;
+  gender: string;
+  password: string;
+  role: string;
 }

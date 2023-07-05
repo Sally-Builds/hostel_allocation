@@ -6,9 +6,6 @@ import App from './app';
 // controller imports below
 validateEnv();
 
-const app = new App(
-    [],
-    Number(process.env.PORT)
-);
+const app = new App([], Number(process.env.PORT));
 
 app.listen();
