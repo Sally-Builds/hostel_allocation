@@ -8,11 +8,12 @@ export default class UserRepository {
    * @param data - user payload
    * @returns - newly created user
    */
-  static async create(data: IUser) {
+  static async create(data: Partial<IUser>): Promise<IUser> {
     try {
-      return await userModel.create(data);
+      const user = await userModel.create(data);
+      return user;
     } catch (error: any) {
-      new HttpException(error, 500);
+      throw new HttpException(error, 500);
     }
   }
 
