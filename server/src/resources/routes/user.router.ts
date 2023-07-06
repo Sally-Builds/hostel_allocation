@@ -10,6 +10,7 @@ class UserRouter {
   constructor(controller: UserController) {
     this._controller = controller;
     this.router.post('/register', validation(userValidation.create), this._controller.register);
+    this.router.post('/login', validation(userValidation.login), this._controller.login);
   }
 
   public getRouter = () => {

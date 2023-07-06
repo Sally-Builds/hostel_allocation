@@ -8,4 +8,9 @@ const create = Joi.object({
   password: Joi.string().required().min(8),
 });
 
-export default { create };
+const login = Joi.object({
+  reg_no: Joi.string().required(),
+  password: Joi.string().required().min(8),
+});
+
+export default { create, login };
