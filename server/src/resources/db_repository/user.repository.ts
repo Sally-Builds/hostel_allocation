@@ -31,6 +31,19 @@ export default class UserRepository {
   }
 
   /**
+   *
+   * @param id user id
+   * @returns user with the id
+   */
+  static async getById(id: string) {
+    try {
+      return await userModel.findOne({ id });
+    } catch (error: any) {
+      new HttpException(error, 500);
+    }
+  }
+
+  /**
    * @param query - filter data using some fields
    * @returns all users
    */
