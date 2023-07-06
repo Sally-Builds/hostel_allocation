@@ -1,16 +1,17 @@
-import bcryptjs from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import UserRepository from '../db_repository/user.repository';
 import IUser from '../interfaces/user.interface';
 import HttpException from '@/utils/exceptions/httpExceptions';
+// import jwt from 'jsonwebtoken';
 
 export default class UserService {
-  public async Register(
+  public Register = async (
     name: string,
     reg_no: string,
     department: string,
     gender: string,
     password: string,
-  ): Promise<IUser> {
+  ): Promise<IUser> => {
     try {
       if (await UserRepository.getByReg_no(reg_no)) {
         throw new HttpException('Registration number already exist', 400);
@@ -27,9 +28,9 @@ export default class UserService {
     } catch (error: any) {
       throw new HttpException(error.message, error.statusCode);
     }
-  }
+  };
 
-  public async login(reg_no: string, password: string): Promise<IUser> {
+  public login = async (reg_no: string, password: string): Promise<IUser> => {
     try {
       const user = await UserRepository.getByReg_no(reg_no);
       if (!user) throw new HttpException('Email or Password invalid', 404);
@@ -40,13 +41,13 @@ export default class UserService {
     } catch (error: any) {
       throw new HttpException(error.message, error.statusCode);
     }
-  }
+  };
 
   private async encryptPassword(password: string): Promise<string> {
-    return await bcryptjs.hash(password, 12);
+    return await bcrypt.hash(password, 12);
   }
 
   private async verifyPassword(passwordString: string, hash: string): Promise<boolean> {
-    return await bcryptjs.compare(passwordString, hash);
+    return await bcrypt.compare(passwordString, hash);
   }
 }

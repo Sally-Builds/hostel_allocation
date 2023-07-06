@@ -6,8 +6,8 @@ import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import Controller from '@/utils/interfaces/Controller.interface';
 import ErrorMiddleware from '@/middleware/error.middleware';
+import Controller from './utils/interfaces/Controller.interface';
 
 class App {
   public port: number;
@@ -35,7 +35,7 @@ class App {
 
   private initializeControllers(controllers: Controller[]) {
     controllers.map((controller: Controller) => {
-      this.app.use('/api', controller.router);
+      this.app.use(`/api/${controller.path}`, controller.router);
     });
   }
 
