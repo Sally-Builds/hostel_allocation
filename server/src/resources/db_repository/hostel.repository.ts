@@ -2,13 +2,13 @@ import hostelModel from '../models/hostel.model';
 import IHostel from '../interfaces/hostel.interface';
 import HttpException from '@/utils/exceptions/httpExceptions';
 
-export class HostelRepository {
+export default class HostelRepository {
   /**
    *
    * @param data Hostel data to commit to db
    * @returns newly created hostel
    */
-  static async create(data: IHostel): Promise<IHostel> {
+  static async create(data: Pick<IHostel, 'gender' | 'name'>): Promise<IHostel> {
     try {
       const hostel = await hostelModel.create(data);
 
