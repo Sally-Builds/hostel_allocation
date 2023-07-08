@@ -11,8 +11,8 @@ export class HostelController {
 
   public create = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-      const { name, gender } = req.body;
-      const hostel = await this._service.create(name, gender);
+      const { name, gender, rank } = req.body;
+      const hostel = await this._service.create(name, gender, rank);
 
       res.status(201).json({ hostel });
     } catch (error: any) {
@@ -20,7 +20,15 @@ export class HostelController {
     }
   };
 
-  // public create = (req: Request, res:Response, next: NextFunction): Promise<Response | void> {}
+  public getAll = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+      const hostels = await this._service.getAllHostels(req.query);
+
+      res.status(201).json({ result_length: hostels.length, hostels });
+    } catch (error: any) {
+      next(new HttpException(error.message, error.statusCode));
+    }
+  };
   // public create = (req: Request, res:Response, next: NextFunction): Promise<Response | void> {}
   // public create = (req: Request, res:Response, next: NextFunction): Promise<Response | void> {}
   // public create = (req: Request, res:Response, next: NextFunction): Promise<Response | void> {}

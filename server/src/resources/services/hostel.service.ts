@@ -2,13 +2,15 @@ import HostelRepository from '../db_repository/hostel.repository';
 import HttpException from '@/utils/exceptions/httpExceptions';
 import IHostel from '../interfaces/hostel.interface';
 import GenderEnum from '../enums/gender';
+import RankEnum from '../enums/rank';
 
 export default class HostelService {
-  public create = async (name: string, gender: string): Promise<IHostel> => {
+  public create = async (name: string, gender: string, rank: string): Promise<IHostel> => {
     try {
-      const data: Pick<IHostel, 'gender' | 'name'> = {
+      const data: Pick<IHostel, 'gender' | 'name' | 'rank'> = {
         name,
         gender: GenderEnum[0] == gender ? 'male' : 'female',
+        rank: this.convertRank(rank),
       };
       const hostel = await HostelRepository.create(data);
       return hostel;
@@ -39,5 +41,27 @@ export default class HostelService {
     } catch (error: any) {
       throw new HttpException(error.message, error.statusCode);
     }
+  };
+
+  public getAllHostels = async (query: Partial<IHostel>): Promise<IHostel[]> => {
+    try {
+      const hostels = await HostelRepository.getAll(query);
+
+      return hostels;
+    } catch (error: any) {
+      throw new HttpException(error.message, error.statusCode);
+    }
+  };
+
+  private convertRank = (rank: string) => {
+    let numRank;
+    if (rank == RankEnum[0]) {
+      numRank = 0;
+    } else if (rank == RankEnum[1]) {
+      numRank = 1;
+    } else {
+      numRank = 2;
+    }
+    return numRank;
   };
 }

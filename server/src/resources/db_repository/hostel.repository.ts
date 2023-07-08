@@ -69,7 +69,7 @@ export default class HostelRepository {
    * @param data update
    * @returns updated hostel data
    */
-  static async updateHostel(id: string, data: Partial<IHostel>): Promise<IHostel | null> {
+  static async update(id: string, data: Partial<IHostel>): Promise<IHostel | null> {
     try {
       const hostel = await hostelModel.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 
@@ -83,7 +83,7 @@ export default class HostelRepository {
    *
    * @param id hostel id
    */
-  static async deleteHostel(id: string): Promise<void> {
+  static async delete(id: string): Promise<void> {
     try {
       const hostel = await hostelModel.findByIdAndDelete(id);
 
