@@ -12,6 +12,9 @@ const userSchema = new Schema<IUser>({
     enum: ['admin', 'student'],
     default: 'student',
   },
+  room_allocated: {
+    type: String,
+  },
 });
 
 export default model('User', userSchema);

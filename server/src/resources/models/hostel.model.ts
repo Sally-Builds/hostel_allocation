@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import IHostel from '../interfaces/hostel.interface';
 import GenderEnum from '../enums/gender';
-import RankEnum from '../enums/rank';
 
 const hostelSchema = new Schema<IHostel>({
   name: {
@@ -9,9 +8,13 @@ const hostelSchema = new Schema<IHostel>({
     unique: true,
     required: [true, 'Enter Hostel name'],
   },
-  rank: {
+  num_of_rooms: {
     type: Number,
-    enum: [RankEnum.last, RankEnum.middle, RankEnum.top],
+    default: 0,
+  },
+  max_rooms: {
+    type: Number,
+    default: 3,
   },
   total_occupants: {
     type: Number,

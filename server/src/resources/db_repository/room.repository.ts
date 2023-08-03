@@ -35,6 +35,16 @@ export default class RoomRepository {
     }
   }
 
+  static async getOne(query: any): Promise<IRoom | null> {
+    try {
+      const room = await roomModel.findOne(query);
+
+      return room;
+    } catch (error: any) {
+      throw new HttpException(error, error.statusCode | 500);
+    }
+  }
+
   static async update(id: string, data: Partial<IRoom>): Promise<IRoom> {
     try {
       const room = await roomModel.findByIdAndUpdate(id, data, { runValidators: true, new: true });

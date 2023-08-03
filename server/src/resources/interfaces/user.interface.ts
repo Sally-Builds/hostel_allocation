@@ -6,4 +6,5 @@ export default interface IUser {
   password?: string;
   role: string;
   id: string;
+  room_allocated?: string;
 }

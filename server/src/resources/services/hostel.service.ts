@@ -5,12 +5,12 @@ import GenderEnum from '../enums/gender';
 import RankEnum from '../enums/rank';
 
 export default class HostelService {
-  public create = async (name: string, gender: string, rank: string): Promise<IHostel> => {
+  public create = async (name: string, gender: string, max_rooms: number): Promise<IHostel> => {
     try {
-      const data: Pick<IHostel, 'gender' | 'name' | 'rank'> = {
+      const data: Pick<IHostel, 'gender' | 'name' | 'max_rooms'> = {
         name,
         gender: GenderEnum[0] == gender ? 'male' : 'female',
-        rank: this.convertRank(rank),
+        max_rooms,
       };
       const hostel = await HostelRepository.create(data);
       return hostel;
