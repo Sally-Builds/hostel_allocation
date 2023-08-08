@@ -3,6 +3,7 @@ export default interface IRoom {
   room_number: number;
   rank: number;
   isFull: boolean;
-  occupants: string[];
+  max_number_of_occupants: number;
   id: string;
+  occupants: string[];
 }

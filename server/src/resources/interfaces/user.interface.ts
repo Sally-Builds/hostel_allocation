@@ -7,4 +7,5 @@ export default interface IUser {
   role: string;
   id: string;
   room_allocated?: string;
+  hostel_allocated?: string;
 }

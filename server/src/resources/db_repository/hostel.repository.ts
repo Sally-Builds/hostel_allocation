@@ -25,7 +25,7 @@ export default class HostelRepository {
    */
   static async getAll(query: any): Promise<IHostel[]> {
     try {
-      const hostels = await hostelModel.find(query);
+      const hostels = await hostelModel.find(query).populate('rooms');
 
       return hostels;
     } catch (error: any) {
@@ -69,7 +69,7 @@ export default class HostelRepository {
    * @param data update
    * @returns updated hostel data
    */
-  static async update(id: string, data: Partial<IHostel>): Promise<IHostel | null> {
+  static async update(id: string, data: any): Promise<IHostel | null> {
     try {
       const hostel = await hostelModel.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 

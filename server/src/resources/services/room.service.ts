@@ -10,6 +10,9 @@ export default class RoomService {
       const hostel = await HostelRepository.getById(hostel_id);
       if (!hostel) throw new HttpException('hostel does not exist', 404);
 
+      if (await RoomRepository.getOne({ room_number, hostel_id }))
+        throw new HttpException('room with this number already exist', 400);
+
       const roomsCreated = await RoomRepository.getAll({ hostel_id });
 
       if (roomsCreated.length >= hostel.max_rooms) {
@@ -50,6 +53,10 @@ export default class RoomService {
       throw new HttpException(error.message, error.statusCode);
     }
   };
+
+  // public assignRoom = async (): Promise<IRoom> => {
+  //   const room = await RoomRepository.getAll();
+  // };
 
   private convertRank = (rank: string) => {
     let numRank;

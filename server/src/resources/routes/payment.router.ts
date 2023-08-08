@@ -8,7 +8,7 @@ class PaymentRouter {
 
   constructor(controller: PaymentController) {
     this._controller = controller;
-    this.router.route('/').get(authenticate, this._controller.create);
+    this.router.route('/').post(authenticate, this._controller.create);
   }
 
   public getRouter = () => {

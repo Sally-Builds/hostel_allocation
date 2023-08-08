@@ -11,7 +11,7 @@ export class PaymentController {
 
   public create = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-      const payment = await this._service.create(req.user.id, req.body.receipt_number);
+      const payment = await this._service.create(req.user, req.body.receipt_number);
 
       res.status(201).json(payment);
     } catch (error: any) {

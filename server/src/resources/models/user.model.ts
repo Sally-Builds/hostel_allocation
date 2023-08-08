@@ -15,6 +15,9 @@ const userSchema = new Schema<IUser>({
   room_allocated: {
     type: String,
   },
+  hostel_allocated: {
+    type: String,
+  },
 });
 
 export default model('User', userSchema);

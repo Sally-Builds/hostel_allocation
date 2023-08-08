@@ -35,6 +35,16 @@ export class UserController {
       next(new HttpException(error.message, error.statusCode));
     }
   };
+
+  public getMe = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.status(201).json({
+        user: req.user,
+      });
+    } catch (error: any) {
+      next(new HttpException(error.message, error.statusCode));
+    }
+  };
 }
 
 export default new UserController(new UserService());

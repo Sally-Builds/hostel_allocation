@@ -24,7 +24,10 @@ export default class UserRepository {
    */
   static async getByReg_no(reg_no: string) {
     try {
-      return await userModel.findOne({ reg_no });
+      return (await userModel.findOne({ reg_no })).populate([
+        { path: 'hostel_allocated', model: 'Hostel' },
+        { path: 'room_allocated', model: 'Room' },
+      ]);
     } catch (error: any) {
       new HttpException(error, 500);
     }
@@ -37,7 +40,10 @@ export default class UserRepository {
    */
   static async getById(id: string) {
     try {
-      return await userModel.findOne({ id });
+      return await userModel.findById(id).populate([
+        { path: 'hostel_allocated', model: 'Hostel' },
+        { path: 'room_allocated', model: 'Room' },
+      ]);
     } catch (error: any) {
       new HttpException(error, 500);
     }
@@ -61,9 +67,9 @@ export default class UserRepository {
    * @param data - data to update
    * @returns newly updated user data
    */
-  static async update(id: string, data: IUser) {
+  static async update(id: string, data: Partial<IUser>) {
     try {
-      return await userModel.findOneAndUpdate({ id }, data, { new: true, runValidators: true });
+      return await userModel.findByIdAndUpdate(id, data, { new: true, runValidators: true });
     } catch (error: any) {
       new HttpException(error, 500);
     }

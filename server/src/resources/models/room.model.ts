@@ -19,6 +19,10 @@ const roomSchema = new Schema<IRoom>({
     type: Boolean,
     default: false,
   },
+  max_number_of_occupants: {
+    type: Number,
+    default: 4,
+  },
   occupants: {
     type: [String],
   },

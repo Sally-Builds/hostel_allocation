@@ -7,10 +7,12 @@ import HttpException from '@/utils/exceptions/httpExceptions';
 
 async function authenticate(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   const bearer = req.headers.authorization;
+  console.log(bearer);
 
   if (!bearer || !bearer.startsWith('Bearer')) {
     return next(new HttpException('Unauthorized access', 401));
   }
+
   const accessToken = bearer.split('Bearer ')[1].trim();
   try {
     const payload: Token | jwt.JsonWebTokenError = await verifyToken(accessToken);
@@ -26,6 +28,7 @@ async function authenticate(req: Request, res: Response, next: NextFunction): Pr
     }
 
     req.user = user;
+    console.log(user);
     next();
   } catch (error: any) {
     next(new HttpException('Unauthorized access', 401));
